@@ -2,4 +2,6 @@
 
 <h2><%= @task.name %></h2>
 <p><%= @task.explanation %></p>
+
+<%= link_to '戻る', "/tasks", method: :get %>
 <%= link_to '編集', "/tasks/#{@task.id}/edit", method: :get %>
