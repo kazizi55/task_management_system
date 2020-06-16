@@ -1,0 +1,43 @@
+@startuml
+
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "ユーザー" as user {
+  *id : integer <<generated>>
+  --
+  *name : string
+  *email : string
+  *password : string
+  *admin : boolean
+}
+
+entity "タスク" as task {
+  *id : integer <<generated>>
+  --
+  *name : string
+  explanation : text
+  *priority : integer
+  *expired_date : timestamps
+}
+
+entity "ラベル" as label {
+  *id : integer <<generated>>
+  --
+  *name : string
+}
+
+entity "ステータス" as status {
+  *id : integer <<generated>>
+  --
+  *name : string
+}
+
+user ||--|{ task
+task }|--|| status
+task }|--|{ label
+
+@enduml
