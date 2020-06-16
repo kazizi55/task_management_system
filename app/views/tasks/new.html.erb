@@ -1,9 +1,3 @@
 <h1>新規タスク</h1>
 
-<%= form_with(model: @task, local: true) do |f| %>
-  <%= f.label :name, '名前' %>
-  <%= f.text_field :name %>
-  <%= f.label :explanation, '説明' %>
-  <%= f.text_area :explanation %>
-  <%= f.submit '作成' %>
-<% end %>
+<%= render 'form' %>
