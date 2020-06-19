@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :find_task, only: [:show, :edit, :update]
+  before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all
@@ -27,6 +27,16 @@ class TasksController < ApplicationController
     logger.error e.backtrace.join("\n") 
     flash.now[:alert] = "更新に失敗しました"
     render 'edit'
+  end
+
+  def destroy
+    @task.destroy!
+    redirect_to tasks_path, notice: "タスクを削除しました"
+  rescue => e
+    logger.error e 
+    logger.error e.backtrace.join("\n") 
+    flash.now[:alert] = "削除に失敗しました"
+    render 'show'
   end
 
   private

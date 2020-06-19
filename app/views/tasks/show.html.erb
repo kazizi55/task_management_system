@@ -5,3 +5,5 @@
 
 <%= link_to '戻る', "/tasks", method: :get %>
 <%= link_to '編集', "/tasks/#{@task.id}/edit", method: :get %>
+<%= link_to '削除', "/tasks/#{@task.id}", method: :delete %>
+
