@@ -54,3 +54,5 @@ services:
     logging:
       driver: none
     container_name: selenium_chrome
+    ports:
+      - 4444:4444
