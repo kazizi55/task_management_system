@@ -13,7 +13,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.save!
     redirect_to tasks_path, notice: "タスクを追加しました" 
-  rescue ActiveRecord::RecordInvalid => e
+  rescue => e
     logger.error e 
     logger.error e.backtrace.join("\n") 
     flash.now[:alert] = "登録に失敗しました"
