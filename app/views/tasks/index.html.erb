@@ -5,5 +5,7 @@
 <% @tasks.each do |task| %>
     <h2><%= task.name %></h2>
     <p><%= task.explanation %></p>
+    <p>作成日時：<%= task.created_at %></p>
+    <p>更新日時：<%= task.updated_at %></p>
     <%= link_to '詳細', "/tasks/#{task.id}", method: :get %>
 <% end %>
