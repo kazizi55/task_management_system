@@ -1,4 +1,5 @@
 <%= form_with(model: @task, local: true) do |f| %>
+  <%= render 'layouts/error_messages', model: @task %>
   <%= f.label :name, '名前' %>
   <%= f.text_field :name, value: @task.name %>
   <%= f.label :explanation, '説明' %>
