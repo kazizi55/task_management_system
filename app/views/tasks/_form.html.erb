@@ -3,5 +3,11 @@
   <%= f.text_field :name, value: @task.name %>
   <%= f.label :explanation, '説明' %>
   <%= f.text_area :explanation, value: @task.explanation %>
+  <%= f.label :deadline, '期限' %>
+  <% if @task.deadline.present? %>
+    <%= f.datetime_field :deadline, value: @task.deadline.iso8601.gsub(/\+..:..$/, '') %>
+  <% else %>
+    <%= f.datetime_field :deadline %>
+  <% end %>
   <%= f.submit '保存' %>
 <% end %>
