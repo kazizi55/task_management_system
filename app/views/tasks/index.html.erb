@@ -2,6 +2,8 @@
 
 <%= link_to '新規作成', "/tasks/new", method: :get %>
 
+<%= sort_link(@q, :deadline, "終了日時順") %>
+
 <% @tasks.each do |task| %>
     <h2><%= task.name %></h2>
     <p><%= task.explanation %></p>
