@@ -11,6 +11,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.valid?
     @task.save!
     redirect_to tasks_path, notice: "タスクを追加しました" 
   rescue => e
@@ -21,6 +22,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task.valid?
     @task.update!(task_params)
     redirect_to tasks_path, notice: "タスクを修正しました"
   rescue => e
