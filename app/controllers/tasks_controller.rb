@@ -10,7 +10,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.create!(task_params)
+    @task = Task.new(task_params)
+    @task.valid?
+    @task.save!
     redirect_to tasks_path, notice: "タスクを追加しました" 
   rescue => e
     logger.error e 
@@ -20,6 +22,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task.valid?
     @task.update!(task_params)
     redirect_to tasks_path, notice: "タスクを修正しました"
   rescue => e
