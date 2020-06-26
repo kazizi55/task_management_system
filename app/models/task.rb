@@ -4,6 +4,7 @@ class Task < ApplicationRecord
   validate :deadline_cannot_be_in_the_past
 
   def deadline_cannot_be_in_the_past
-    errors.add(:deadline, "は過去の日時は選択できません") if deadline < Time.now
+    return if deadline == nil
+    errors.add(:deadline, "は過去の日時は選択できません") if deadline < Time.now 
   end
 end
