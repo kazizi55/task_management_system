@@ -9,16 +9,16 @@ RSpec.describe Task, type: :model do
       let(:params) { { name: 'テスト', explanation: 'テストテスト', deadline: Time.current.tomorrow } }
 
       it 'validates successfully' do
-        is_expected.to eq true
+        expect(subject).to eq true
       end
     end
 
     context 'when fail' do
       context 'name is nil' do
-        let(:params) { { name: nil, explanation: 'テストテスト' } }
+        let(:params) { { name: nil, explanation: 'テストテスト', deadline: Time.current.tomorrow } }
 
         it 'returns an error message' do
-          is_expected.to eq false
+          expect(subject).to eq false
           expect(task.errors[:name]).to include('を入力してください')
         end
       end
@@ -27,7 +27,7 @@ RSpec.describe Task, type: :model do
         let(:params) { { name: 'テスト', explanation: 'テストテスト', deadline: nil } }
 
         it 'returns an error message' do
-          is_expected.to eq false
+          expect(subject).to eq false
           expect(task.errors[:deadline]).to include('を入力してください')
         end
       end
@@ -36,7 +36,7 @@ RSpec.describe Task, type: :model do
         let(:params) { { name: 'テスト', explanation: 'テストテスト', deadline: Time.current.yesterday } }
 
         it 'returns an error message' do
-          is_expected.to eq false
+          expect(subject).to eq false
           expect(task.errors[:deadline]).to include('は過去の日時は選択できません')
         end
       end
