@@ -2,6 +2,7 @@
 
 <h2><%= @task.name %></h2>
 <%= @task.explanation %>
+<p>状態：<%= @task.enum_i18n(:status) %></p>
 
 <%= link_to '戻る', "/tasks", method: :get %>
 <%= link_to '編集', "/tasks/#{@task.id}/edit", method: :get %>

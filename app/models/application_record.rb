@@ -8,7 +8,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.enums_i18n(enum_name)
     self.send(enum_name.to_s.pluralize).map do |key, value|
-      [I18n.t!("enums.#{self.model_name.i18n_key}.#{enum_name}.#{key}"), value]
+      [I18n.t!("enums.#{self.model_name.i18n_key}.#{enum_name}.#{key}"), key]
     end.to_h
   end
 end
