@@ -6,3 +6,10 @@ ja:
         task:
           name: タスク名
           explanation: 説明
+    views:
+      pagination:
+        first: "&laquo; 最初"
+        last: "最後 &raquo;"
+        previous: "&lsaquo; 前"
+        next: "次 &rsaquo;"
+        truncate: "..."
