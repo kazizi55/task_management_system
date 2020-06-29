@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_054640) do
     t.text "explanation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0, null: false
     t.datetime "deadline", null: false
+    t.integer "status", default: 0, null: false
   end
 
 end

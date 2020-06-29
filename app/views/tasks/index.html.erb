@@ -1,5 +1,17 @@
 <h1>タスク一覧</h1>
 
+<%= search_form_for @query do |f| %>
+  <%= f.label :name, "タスク名" %>
+  <%= f.search_field :name_cont %>
+  <%= f.label :status, "状態" %>
+　<%= f.radio_button :status_eq, '', { checked: true } %>指定なし
+  <%= f.radio_button :status_eq, 0 %>未着手
+  <%= f.radio_button :status_eq, 1 %>着手中
+  <%= f.radio_button :status_eq, 2 %>完了
+
+  <%= f.submit "検索" %>
+<% end %>
+
 <%= link_to '新規作成', "/tasks/new", method: :get %>
 
 <%= sort_link(@query, :deadline, "期限順") %>
