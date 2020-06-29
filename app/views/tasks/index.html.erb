@@ -9,3 +9,5 @@
     <p>更新日時：<%= task.updated_at %></p>
     <%= link_to '詳細', "/tasks/#{task.id}", method: :get %>
 <% end %>
+
+<%= paginate @tasks %>
