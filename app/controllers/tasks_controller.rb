@@ -2,7 +2,9 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    @query = Task.ransack(params[:q])
+    @query.sorts = 'created_at desc' if @query.sorts.empty?
+    @tasks = @query.result(distinct: true).page(params[:page]).per(10)
   end
 
   def new
@@ -45,7 +47,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :explanation)
+    params.require(:task).permit(:name, :explanation, :deadline)
   end
 
   def find_task
