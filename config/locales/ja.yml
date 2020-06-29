@@ -6,6 +6,7 @@ ja:
         task:
           name: タスク名
           explanation: 説明
+          deadline: 期限
     views:
       pagination:
         first: "&laquo; 最初"
