@@ -1,14 +1,30 @@
-<%= form_with(model: @task, local: true) do |f| %>
+<%= form_with(model: @task, local: true, class: "width-30rem") do |f| %>
   <%= render 'layouts/error_messages', model: @task %>
-  <%= f.label :name, '名前' %>
-  <%= f.text_field :name, value: @task.name %>
-  <%= f.label :explanation, '説明' %>
-  <%= f.text_area :explanation, value: @task.explanation %>
-  <%= f.label :deadline, '期限' %>
-  <% if @task.deadline.present? %>
-    <%= f.datetime_field :deadline, value: @task.deadline.iso8601.gsub(/\+..:..$/, '') %>
+
+  <div class="form-group">
+    <%= f.label :name, '名前' %>
+    <%= f.text_field :name, value: @task.name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :explanation, '説明' %>
+    <%= f.text_area :explanation, value: @task.explanation, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :deadline, '期限' %>
+    <% if @task.deadline.present? %>
+      <%= f.datetime_field :deadline, value: @task.deadline.iso8601.gsub(/\+..:..$/, ''), class: "form-control" %>
+    <% else %>
+      <%= f.datetime_field :deadline, class: "form-control" %>
+    <% end %>
+  </div>
+
+  <% if request.fullpath == "/tasks/new" %>
+    <%= link_to '戻る', "/tasks", method: :get, class: "btn btn-outline-primary" %>
   <% else %>
-    <%= f.datetime_field :deadline %>
+    <%= link_to '戻る', "/tasks/#{@task.id}", method: :get, class: "btn btn-outline-primary" %>
   <% end %>
-  <%= f.submit '保存' %>
+
+  <%= f.submit '保存', class: "btn btn-outline-success" %>
 <% end %>
