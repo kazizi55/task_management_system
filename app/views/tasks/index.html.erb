@@ -1,4 +1,4 @@
-<h2>タスク一覧</h2>
+<h1>タスク一覧</h1>
 
 <div class="my-3">
   <%= link_to '新規作成', "/tasks/new", method: :get, class: "btn btn-outline-success mr-2" %>
@@ -10,7 +10,7 @@
     <div class="card-header">
       期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %>
     </div>
-    
+
     <div class="card-body">
       <h5 class="card-title"><%= task.name %></h5>
       <p class="card-text"><small class="text-muted"><%= time_ago_in_words(task.created_at) %>前に作成</small></p>
