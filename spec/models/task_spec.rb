@@ -42,43 +42,4 @@ RSpec.describe Task, type: :model do
       end
     end
   end
-
-  describe 'search test' do
-    before(:each) do
-      create_list(:task_A, 3)
-      create_list(:task_B, 3)
-      create_list(:task_C, 3)
-    end
-
-    let(:task) { described_class.ransack(query) }
-    subject { task.result }
-
-    context 'search by name' do
-      let(:query) { { "name_cont" => "テストA" } }
-
-      it 'returns correct result' do
-        expect(subject.length).to eq 3
-        expect(subject[0].name).to eq "テストA-1"
-      end
-    end
-
-    context 'search by status' do
-      let(:query) { { "status_eq" => "1" } }
-
-      it 'returns correct result' do
-        expect(subject.length).to eq 3
-        expect(subject[0].status).to eq "in_progress"
-      end
-    end
-
-    context 'search by name and status' do
-      let(:query) { { "name_cont" => "テストC", "status_eq" => "2" } }
-
-      it 'returns correct result' do
-        expect(subject.length).to eq 3
-        expect(subject[0].name).to eq "テストC-7"
-        expect(subject[0].status).to eq "completed"
-      end
-    end
-  end
 end
