@@ -6,7 +6,7 @@
 </div>
 
 <% @tasks.each do |task| %>
-  <div class="card mb-2" style="width: 18rem;">
+  <div class="card mb-2 width-18rem">
     <div class="card-header">
       期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %>
     </div>
