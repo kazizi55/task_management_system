@@ -7,10 +7,12 @@
 
 <% @tasks.each do |task| %>
   <div class="card mb-2" style="width: 18rem;">
+    <div class="card-header">
+      期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %>
+    </div>
     <div class="card-body">
       <h5 class="card-title"><%= task.name %></h5>
       <p class="card-text"><%= task.explanation %></p>
-      <p class="card-text"><small class="text-muted">期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %></small></p>
       <p class="card-text"><small class="text-muted"><%= time_ago_in_words(task.created_at) %>前に作成</small></p>
 
       <% if task.created_at != task.updated_at %>
