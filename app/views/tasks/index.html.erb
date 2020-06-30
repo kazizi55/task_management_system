@@ -1,16 +1,25 @@
-<h1>タスク一覧</h1>
+<h2>タスク一覧</h2>
 
-<%= link_to '新規作成', "/tasks/new", method: :get %>
-
-<%= sort_link(@query, :deadline, "期限順") %>
+<div class="my-3">
+  <%= link_to '新規作成', "/tasks/new", method: :get, class: "btn btn-outline-success mr-2" %>
+  <%= sort_link(@query, :deadline, "期限順") %>
+</div>
 
 <% @tasks.each do |task| %>
-    <h2><%= task.name %></h2>
-    <p><%= task.explanation %></p>
-    <p>期限 <%= task.deadline %></p>
-    <p>作成日時：<%= task.created_at %></p>
-    <p>更新日時：<%= task.updated_at %></p>
-    <%= link_to '詳細', "/tasks/#{task.id}", method: :get %>
+  <div class="card mb-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= task.name %></h5>
+      <p class="card-text"><%= task.explanation %></p>
+      <p class="card-text"><small class="text-muted">期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %></small></p>
+      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(task.created_at) %>前に作成</small></p>
+
+      <% if task.created_at != task.updated_at %>
+        <p class="card-text"><small class="text-muted"><%= time_ago_in_words(task.updated_at) %>前に更新</small></p>
+      <% end %>
+
+      <%= link_to '詳細', "/tasks/#{task.id}", method: :get, class: "card-link" %>
+    </div>
+  </div>
 <% end %>
 
 <%= paginate @tasks %>
