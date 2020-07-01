@@ -1,0 +1,10 @@
+<h1>ログイン</h1>
+
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= render 'layouts/error_messages', model: @user %>
+  <%= f.label :email, 'メールアドレス' %>
+  <%= f.email_field :email, value: @user.email %>
+  <%= f.label :password, 'パスワード' %>
+  <%= f.password_field :password %>
+  <%= f.submit 'ログイン' %>
+<% end %>
