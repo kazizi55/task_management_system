@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_094603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", null: false
-    t.string "password_digest", null: false
+    t.string "password", null: false
     t.string "remember_token"
   end
 

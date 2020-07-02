@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include UsersHelper
   skip_before_action :require_sign_in!, only: [:new, :create]
 
   def new
@@ -6,7 +7,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    password = params[:password]
+    @user = User.new(user_params.merge(password: secure_pass(password)))
     @user.valid?
     @user.save!
     redirect_to login_path, notice: "ユーザーを登録しました" 
@@ -20,6 +22,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :mail, :password, :password_confirmation)
+    params.permit(:name, :email, :password)
   end
 end
