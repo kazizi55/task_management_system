@@ -8,10 +8,11 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @task = Task.new(user_id: @current_user.id)
   end
 
   def create
+    binding.pry
     @task = Task.new(task_params)
     @task.valid?
     @task.save!
@@ -47,7 +48,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :explanation, :deadline)
+    params.require(:task).permit(:name, :explanation, :deadline, :user_id)
   end
 
   def find_task

@@ -10,5 +10,7 @@
   <% else %>
     <%= f.datetime_field :deadline %>
   <% end %>
+  <%= f.hidden_field :user_id, value: @task.user_id %>
+
   <%= f.submit '保存' %>
 <% end %>
