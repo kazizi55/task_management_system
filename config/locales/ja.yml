@@ -2,11 +2,16 @@ ja:
     activerecord:
       models:
         task: タスク
+        user: ユーザー
       attributes:
         task:
           name: タスク名
           explanation: 説明
           deadline: 期限
+        user:
+          name: ユーザー名
+          email: メールアドレス
+          password: パスワード
     views:
       pagination:
         first: "&laquo; 最初"

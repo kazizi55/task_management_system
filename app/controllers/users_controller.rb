@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    password = params[:password]
+    password = params[:user][:password]
     @user = User.new(user_params.merge(password: secure_pass(password)))
     @user.valid?
     @user.save!
@@ -22,6 +22,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password)
   end
 end
