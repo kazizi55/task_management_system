@@ -10,7 +10,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params.merge(password: secure_pass(password)))
     @user.valid?
     @user.save!
-    redirect_to login_path, notice: "ユーザーを登録しました" 
+    sign_in(@user)
+    redirect_to tasks_path, notice: "ユーザーを登録しました" 
   rescue => e
     logger.error e 
     logger.error e.backtrace.join("\n") 
