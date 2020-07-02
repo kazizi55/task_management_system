@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @query = Task.ransack(params[:q])
+    @query = Task.where(user_id: @current_user.id).ransack(params[:q])
     @query.sorts = 'created_at desc' if @query.sorts.empty?
     @tasks = @query.result(distinct: true).page(params[:page]).per(10)
   end
