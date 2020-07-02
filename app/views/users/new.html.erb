@@ -1,5 +1,7 @@
 <h1>ユーザーを登録</h1>
 
+<%= link_to 'ログイン', "/login", method: :get %>
+
 <%= form_with(model: @user, path: users_path, local: true) do |f| %>
   <%= render 'layouts/error_messages', model: @user %>
   <%= f.label :name, '名前' %>
