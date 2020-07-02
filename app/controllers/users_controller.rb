@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include UsersHelper
   skip_before_action :require_sign_in!, only: [:new, :create]
 
   def new

@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  def secure_pass(password)
+    return if password == nil
+    
+    secure_password = password.crypt(Rails.application.credentials.salt[:salt_key])
+    return secure_password
+  end
+
   def current_user
     remember_token = User.encrypt(cookies[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
