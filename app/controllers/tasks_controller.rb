@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+  before_action :reject_other_users_by_query, only: [:show, :edit]
 
   def index
     @query = Task.where(user_id: @current_user.id).ransack(params[:q])
@@ -52,5 +53,9 @@ class TasksController < ApplicationController
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def reject_other_users_by_query
+    redirect_to tasks_path unless @task.user_id == @current_user.id
   end
 end
