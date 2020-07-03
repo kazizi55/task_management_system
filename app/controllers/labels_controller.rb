@@ -2,7 +2,7 @@ class LabelsController < ApplicationController
   before_action :find_label, only: [:show, :edit, :update, :destroy]
 
   def index
-    @labels = Label.all.page(params[:page]).per(10)
+    @labels = Label.all.page(params[:page]).per(5)
   end
 
   def new
