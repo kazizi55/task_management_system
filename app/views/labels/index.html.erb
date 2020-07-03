@@ -1,0 +1,13 @@
+<h1>ラベル一覧</h1>
+
+<%= link_to '新規作成', "/labels/new", method: :get %>
+
+<% @labels.each do |label| %>
+    <h2><%= label.name %></h2>
+    <p>作成日時：<%= label.created_at %></p>
+    <p>更新日時：<%= label.updated_at %></p>
+    <%= link_to '編集', "/labels/#{label.id}/edit", method: :get %>
+    <%= link_to '削除', "/labels/#{label.id}", method: :delete %>
+<% end %>
+
+<%= paginate @labels %>
