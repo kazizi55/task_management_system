@@ -10,5 +10,8 @@
   <% else %>
     <%= f.datetime_field :deadline %>
   <% end %>
+  <%= f.label :label_ids, 'ラベル' %>
+  <%= f.collection_check_boxes :label_ids, Label.all, :id, :name %>
+
   <%= f.submit '保存' %>
 <% end %>

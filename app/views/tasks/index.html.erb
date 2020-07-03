@@ -8,6 +8,11 @@
 <% @tasks.each do |task| %>
     <h2><%= task.name %></h2>
     <p><%= task.explanation %></p>
+
+    <% task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %>
+
     <p>期限 <%= task.deadline %></p>
     <p>作成日時：<%= task.created_at %></p>
     <p>更新日時：<%= task.updated_at %></p>

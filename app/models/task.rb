@@ -1,6 +1,6 @@
 class Task < ApplicationRecord
   has_many :label_tasks, dependent: :destroy
-  has_many :tasks, through: :label_tasks
+  has_many :labels, through: :label_tasks
 
   accepts_nested_attributes_for :label_tasks, allow_destroy: true
 
