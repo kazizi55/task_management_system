@@ -1,6 +1,7 @@
 <h1>ラベル一覧</h1>
 
 <%= link_to '新規作成', "/labels/new", method: :get %>
+<%= link_to 'タスク一覧', "/tasks", method: :get %>
 
 <% @labels.each do |label| %>
     <h2><%= label.name %></h2>
