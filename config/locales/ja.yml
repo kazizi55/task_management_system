@@ -2,11 +2,14 @@ ja:
     activerecord:
       models:
         task: タスク
+        label: ラベル
       attributes:
         task:
           name: タスク名
           explanation: 説明
           deadline: 期限
+        label:
+          name: ラベル名
     views:
       pagination:
         first: "&laquo; 最初"
