@@ -5,10 +5,8 @@
     email: "test#{n + 1}@test.com",
     password: "123456".crypt(Rails.application.credentials.salt[:salt_key])
   )
-end
 
-5.times do |m|
-  3.times do |n|
+  5.times do |m|
     Task.create!(
       name: "テスト未着手#{m + 1}",
       explanation: "テストテスト",
