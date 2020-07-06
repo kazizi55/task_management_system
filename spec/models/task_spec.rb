@@ -3,11 +3,16 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe 'validation test' do
     let(:task) { described_class.new(params) }
+    let(:params) { { name: name, explanation: explanation, status: status, priority: priority, deadline: deadline } }
+    let(:name) { 'テスト' }
+    let(:explanation) { 'テストテスト' }
+    let(:status) { 'not_started' }
+    let(:priority) { 'low' }
+    let(:deadline) { Time.current.tomorrow }
+
     subject { task.valid? }
 
     context 'when success' do
-      let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.tomorrow } }
-
       it 'validates successfully' do
         expect(subject).to eq true
       end
@@ -15,7 +20,7 @@ RSpec.describe Task, type: :model do
 
     context 'when fail' do
       context 'name is nil' do
-        let(:params) { { name: nil, explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.tomorrow } }
+        let(:name) { nil }
 
         it 'returns an error message' do
           expect(subject).to eq false
@@ -24,7 +29,7 @@ RSpec.describe Task, type: :model do
       end
 
       context 'priority is nil' do
-        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: nil, deadline: Time.current.tomorrow } }
+        let(:priority) { nil }
 
         it 'returns an error message' do
           expect(subject).to eq false
@@ -33,7 +38,7 @@ RSpec.describe Task, type: :model do
       end
 
       context 'deadline is nil' do
-        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: nil } }
+        let(:deadline) { nil }
 
         it 'returns an error message' do
           expect(subject).to eq false
@@ -42,7 +47,7 @@ RSpec.describe Task, type: :model do
       end
 
       context 'deadline is past' do
-        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.yesterday } }
+        let(:deadline) { Time.current.yesterday }
 
         it 'returns an error message' do
           expect(subject).to eq false
