@@ -17,7 +17,7 @@ RSpec.describe 'Tasks', type: :system, js: true do
     end
 
     subject do 
-      task = all('h2')
+      task = all('h5')
       task_0 = task[0]
     end
 
