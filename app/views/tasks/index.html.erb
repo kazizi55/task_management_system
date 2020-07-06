@@ -15,6 +15,7 @@
 <%= link_to '新規作成', "/tasks/new", method: :get %>
 
 <%= sort_link(@query, :deadline, "期限順") %>
+<%= sort_link(@query, :priority, "優先度順") %>
 
 <% @tasks.each do |task| %>
     <h2><%= task.name %></h2>
