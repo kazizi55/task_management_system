@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 2020_07_01_094603) do
     t.datetime "updated_at", null: false
     t.datetime "deadline", null: false
     t.integer "status", default: 0, null: false
+    t.bigint "user_id"
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["status"], name: "index_tasks_on_status"
-    t.bigint "user_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
