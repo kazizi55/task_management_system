@@ -6,7 +6,7 @@ RSpec.describe Task, type: :model do
     subject { task.valid? }
 
     context 'when success' do
-      let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, deadline: Time.current.tomorrow } }
+      let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.tomorrow } }
 
       it 'validates successfully' do
         expect(subject).to eq true
@@ -15,7 +15,7 @@ RSpec.describe Task, type: :model do
 
     context 'when fail' do
       context 'name is nil' do
-        let(:params) { { name: nil, explanation: 'テストテスト', status: 0, deadline: Time.current.tomorrow } }
+        let(:params) { { name: nil, explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.tomorrow } }
 
         it 'returns an error message' do
           expect(subject).to eq false
@@ -23,8 +23,17 @@ RSpec.describe Task, type: :model do
         end
       end
 
+      context 'priority is nil' do
+        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: nil, deadline: Time.current.tomorrow } }
+
+        it 'returns an error message' do
+          expect(subject).to eq false
+          expect(task.errors[:priority]).to include('を入力してください')
+        end
+      end
+
       context 'deadline is nil' do
-        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, deadline: nil } }
+        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: nil } }
 
         it 'returns an error message' do
           expect(subject).to eq false
@@ -33,7 +42,7 @@ RSpec.describe Task, type: :model do
       end
 
       context 'deadline is past' do
-        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, deadline: Time.current.yesterday } }
+        let(:params) { { name: 'テスト', explanation: 'テストテスト', status: 0, priority: 0, deadline: Time.current.yesterday } }
 
         it 'returns an error message' do
           expect(subject).to eq false

@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Tasks', type: :system, js: true do
   describe 'order test in index' do
     before(:all) do
-      create_list(:task, 4)
+      create_list(:task, 2)
+      create(:task, :middle_priority)
+      create(:task, :high_priority)
     end
 
     before(:each) do
@@ -29,6 +31,14 @@ RSpec.describe 'Tasks', type: :system, js: true do
     context 'click 期限順' do
       it 'sort by deadline' do
         click_on '期限順'
+        expect(subject).to have_content "テスト1"
+        save_and_open_page
+      end
+    end
+
+    context 'click 優先度順' do
+      it 'sort by priority' do
+        click_on '優先度順'
         expect(subject).to have_content "テスト1"
         save_and_open_page
       end
