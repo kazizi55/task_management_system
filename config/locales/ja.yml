@@ -10,6 +10,12 @@ ja:
           deadline: 期限
         label:
           name: ラベル名
+    enums:
+      task:
+        status:
+          not_started: 未着手
+          in_progress: 着手中
+          completed: 完了
     views:
       pagination:
         first: "&laquo; 最初"
