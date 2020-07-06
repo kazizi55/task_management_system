@@ -10,6 +10,9 @@
   <%= f.label :status, '状態' %>
   <%= f.select :status, Task.enums_i18n(:status) %>
 
+  <%= f.label :priority, '優先度' %>
+  <%= f.select :priority, Task.enums_i18n(:priority), prompt: true %>
+
   <%= f.label :deadline, '期限' %>
   <% if @task.deadline.present? %>
     <%= f.datetime_field :deadline, value: @task.deadline.iso8601.gsub(/\+..:..$/, '') %>
