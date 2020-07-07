@@ -10,6 +10,7 @@ RSpec.describe 'Tasks', type: :system, js: true do
     end
 
     before(:each) do
+      # 2回目以降はタスク一覧ページにリダイレクト
       visit login_path
       fill_in 'メールアドレス', with: 'test@test.com'
       fill_in 'パスワード', with: '123456'
@@ -60,6 +61,7 @@ RSpec.describe 'Tasks', type: :system, js: true do
     end
 
     before(:each) do
+      # 2回目以降はタスク一覧ページにリダイレクト
       visit login_path
       fill_in 'メールアドレス', with: 'test@test.com'
       fill_in 'パスワード', with: '123456'
