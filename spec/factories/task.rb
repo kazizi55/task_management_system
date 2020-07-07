@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :task do
+    sequence(:id) { |n| n }
     sequence(:name) { |n| "テスト#{n}" }
     explanation { 'テストテスト' }
     status { "not_started" }

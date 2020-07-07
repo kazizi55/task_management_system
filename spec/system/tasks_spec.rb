@@ -46,10 +46,16 @@ RSpec.describe 'Tasks', type: :system, js: true do
   end
 
   describe 'search test in index' do
+    let(:task_name) { '' }
+    let(:status) { 'q_status_eq_' }
+    let(:label) { '指定なし' }
+
     before(:all) do
       create_list(:task, 3, name: "テストA")
       create_list(:task, 3, :in_progress, name: "テストB")
       create_list(:task, 3, :completed, name: "テストC")
+      create(:label)
+      create_list(:label_task, 3)
     end
 
     before(:each) do
@@ -57,12 +63,15 @@ RSpec.describe 'Tasks', type: :system, js: true do
     end
 
     after(:all) do
+      LabelTask.destroy_all
       Task.destroy_all
+      Label.destroy_all
     end
 
-    subject do
+    subject! do
       fill_in 'q[name_cont]', with: task_name
       choose status
+      select label, from: "q_labels_id_eq"
       click_button '検索'
     end
 
@@ -79,7 +88,7 @@ RSpec.describe 'Tasks', type: :system, js: true do
       let(:status) { 'q_status_eq_1' }
 
       it 'displays correct result' do
-        expect(page).to have_content '状態：着手中'
+        expect(page).to have_content '着手中'
         save_and_open_page
       end
     end
@@ -90,7 +99,16 @@ RSpec.describe 'Tasks', type: :system, js: true do
 
       it 'displays correct result' do
         expect(page).to have_content "テストC"
-        expect(page).to have_content '状態：完了'
+        expect(page).to have_content '完了'
+        save_and_open_page
+      end
+    end
+
+    context 'search by label' do
+      let(:label) { 'ラベル1' }
+
+      it 'displays correct result' do
+        expect(page).to have_content "テストA"
         save_and_open_page
       end
     end
