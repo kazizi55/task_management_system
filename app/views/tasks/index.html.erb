@@ -23,16 +23,17 @@
           </div>
         <% end %>
         
-        <div class="form-select">
+        <div class="mr-2">
           <%= f.label :labels_id, "ラベル" %>
-          <%= f.collection_select :labels_id_eq, Label.all, :id, :name, include_blank: '指定なし'  %>
+          <%= f.collection_select :labels_id_eq, Label.all, :id, :name, { include_blank: '指定なし' } %>
         </div>
       </div>
 
       <%= f.submit "検索", class: "btn btn-primary h-50" %>
     <% end %>
+
+    <%= link_to "ラベル一覧", "/labels", method: :get, class: "btn btn-outline-secondary mr-2" %>
     <%= link_to '新規作成', "/tasks/new", method: :get, class: "btn btn-outline-success mr-2" %>
-    <%= link_to "ラベル一覧", "/labels", method: :get %>
     <%= sort_link(@query, :deadline, "期限順", {}, { class: "mr-2" }) %>
     <%= sort_link(@query, :priority, "優先度順") %>
   </div>
@@ -45,12 +46,15 @@
       <span>優先度：<%= task.enum_i18n(:priority) %></span>
     </div>
 
+    <div class="ml-2 mt-1 card-text">
+      <% task.labels.each do |label| %>
+        <small>#<%= label.name %> </small>
+      <% end %>
+    </div>
+
     <h5 class="card-title ml-2 mt-2"><%= task.name %></h5>
 
     <div class="d-flex justify-content-end">
-      <% task.labels.each do |label| %>
-      <%= label.name %>
-      <% end %>
       <p class="card-text mr-4"><small class="font-weight-bold"><%= task.enum_i18n(:status) %></small></p>
       <p class="card-text mr-4"><small class="text-muted"><%= time_ago_in_words(task.created_at) %>前に作成</small></p>
       <%= link_to '詳細', "/tasks/#{task.id}", method: :get, class: "card-link mr-4" %>

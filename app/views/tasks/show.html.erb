@@ -3,11 +3,13 @@
     <p class="card-text">タスク詳細</p>
   </div>
   <div class="card-body">
+    <div class="card-text mb-2">
+      <% @task.labels.each do |label| %>
+        <small>#<%= label.name %> </small>
+      <% end %>
+    </div>
     <h5 class="card-title"><%= @task.name %></h5>
     <p class="card-text"><%= @task.explanation %></p>
-    <% @task.labels.each do |label| %>
-      <%= label.name %>
-    <% end %>
     <p class="card-text">状態：<%= @task.enum_i18n(:status) %></p>
     <p class="card-text">優先度：<%= @task.enum_i18n(:priority) %></p>
     <p class="card-text">期限：<%= (@task.deadline.year == Time.current.year) ? (l @task.deadline, format: :short) : (l @task.deadline) %></p>
