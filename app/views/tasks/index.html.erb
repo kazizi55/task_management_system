@@ -27,14 +27,16 @@
       <%= f.submit "検索", class: "btn btn-primary h-50" %>
     <% end %>
     <%= link_to '新規作成', "/tasks/new", method: :get, class: "btn btn-outline-success mr-2" %>
-    <%= sort_link(@query, :deadline, "期限順") %>
+    <%= sort_link(@query, :deadline, "期限順", {}, { class: "mr-2" }) %>
+    <%= sort_link(@query, :priority, "優先度順") %>
   </div>
 </div>
 
 <% @tasks.each do |task| %>
   <div class="card mb-2 width-30rem mx-auto">
     <div class="card-header">
-      期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %>
+      <span class="mr-2">期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %></span>
+      <span>優先度：<%= task.enum_i18n(:priority) %></span>
     </div>
 
     <h5 class="card-title ml-2 mt-2"><%= task.name %></h5>
