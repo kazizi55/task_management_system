@@ -1,7 +1,16 @@
-<%= form_with(model: @label, local: true) do |f| %>
+<%= form_with(model: @label, local: true, class: "width-40rem mx-auto") do |f| %>
   <%= render 'layouts/error_messages', model: @label %>
-  <%= f.label :name, '名前' %>
-  <%= f.text_field :name, value: @label.name %>
+
+  <div class="form-group">
+    <%= f.label :name, '名前' %>
+    <%= f.text_field :name, value: @label.name, class: "form-control" %>
+  </div>
+
+  <% if request.fullpath == "/labels/new" %>
+    <%= link_to '戻る', "/labels", method: :get, class: "btn btn-outline-primary" %>
+  <% else %>
+    <%= link_to '戻る', "/labels", method: :get, class: "btn btn-outline-primary" %>
+  <% end %>
   
-  <%= f.submit '保存' %>
+  <%= f.submit '保存', class: "btn btn-outline-success" %>
 <% end %>
