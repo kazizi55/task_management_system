@@ -5,6 +5,7 @@ FactoryBot.define do
     status { "not_started" }
     sequence(:deadline) { |n| Time.current + n.days }
     sequence(:created_at) { |n| Time.current + (n - 1).days }
+    user_id { 1 }
 
     trait :in_progress do
       status { "in_progress" }
