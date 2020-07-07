@@ -8,6 +8,7 @@ ja:
           name: タスク名
           explanation: 説明
           deadline: 期限
+          priority: 優先度
         user:
           name: ユーザー名
           email: メールアドレス
@@ -18,6 +19,10 @@ ja:
           not_started: 未着手
           in_progress: 着手中
           completed: 完了
+        priority:
+          low: 低
+          middle: 中
+          high: 高
     views:
       pagination:
         first: "&laquo; 最初"
