@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   def index
     @query = Task.ransack(params[:q])
     @query.sorts = 'created_at desc' if @query.sorts.empty?
-    @tasks = @query.result(distinct: true).page(params[:page]).per(10)
+    @tasks = @query.result(distinct: true).page(params[:page]).per(5)
   end
 
   def new
@@ -47,7 +47,9 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :explanation, :deadline)
+    params.require(:task).permit(
+      :name, :explanation, :deadline, :status, :priority
+    )
   end
 
   def find_task
