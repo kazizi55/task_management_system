@@ -1,39 +1,61 @@
-<h1>タスク一覧</h1>
+<div class="text-center mt-3">
+  <h1>タスク一覧</h1>
 
-<%= search_form_for @query do |f| %>
-  <%= f.label :name, "タスク名" %>
-  <%= f.search_field :name_cont %>
+  <div class="py-3">
+    <%= search_form_for @query, html: { class: 'd-flex justify-content-center pb-2' } do |f| %>
+      <div class="form-group mr-2">
+        <%= f.label :name, "タスク名", { class: "mr-2" } %>
+        <%= f.search_field :name_cont %>
+      </div>
 
-  <%= f.label :status, "状態" %>
-　<%= f.radio_button :status_eq, '', { checked: true } %>指定なし
-  <%= f.radio_button :status_eq, 0 %>未着手
-  <%= f.radio_button :status_eq, 1 %>着手中
-  <%= f.radio_button :status_eq, 2 %>完了
+      <div class="d-flex mr-3">
+        <%= f.label :status, "状態", { class: "mr-2" } %>
 
-  <%= f.label :labels_id, "ラベル" %>
-  <%= f.collection_select :labels_id_eq, Label.all, :id, :name, include_blank: '指定なし'  %>
+        <div class="form-check mr-2">
+          <%= f.radio_button :status_eq, '', { checked: true, class: "form-check-input" } %>
+          <%= f.label :status_eq, "指定なし", {}, { class: "form-check-label" } %>
+        </div>
 
-  <%= f.submit "検索" %>
-<% end %>
+        <% for num in 0..2 do %>
+          <div class="form-check mr-2">
+            <%= f.radio_button :status_eq, num, { class: "form-check-input" } %>
+            <%= f.label :status_eq, Task.enums_i18n(:status).keys[num], {}, { class: "form-check-label" } %>
+          </div>
+        <% end %>
+        
+        <div class="form-select">
+          <%= f.label :labels_id, "ラベル" %>
+          <%= f.collection_select :labels_id_eq, Label.all, :id, :name, include_blank: '指定なし'  %>
+        </div>
+      </div>
 
-<%= link_to '新規作成', "/tasks/new", method: :get %>
-<%= link_to "ラベル一覧", "/labels", method: :get %>
-
-<%= sort_link(@query, :deadline, "期限順") %>
+      <%= f.submit "検索", class: "btn btn-primary h-50" %>
+    <% end %>
+    <%= link_to '新規作成', "/tasks/new", method: :get, class: "btn btn-outline-success mr-2" %>
+    <%= link_to "ラベル一覧", "/labels", method: :get %>
+    <%= sort_link(@query, :deadline, "期限順", {}, { class: "mr-2" }) %>
+    <%= sort_link(@query, :priority, "優先度順") %>
+  </div>
+</div>
 
 <% @tasks.each do |task| %>
-    <h2><%= task.name %></h2>
-    <p><%= task.explanation %></p>
+  <div class="card mb-2 width-30rem mx-auto">
+    <div class="card-header">
+      <span class="mr-2">期限：<%= (task.deadline.year == Time.current.year) ? (l task.deadline, format: :short) : (l task.deadline) %></span>
+      <span>優先度：<%= task.enum_i18n(:priority) %></span>
+    </div>
 
-    <% task.labels.each do |label| %>
+    <h5 class="card-title ml-2 mt-2"><%= task.name %></h5>
+
+    <div class="d-flex justify-content-end">
+      <% task.labels.each do |label| %>
       <%= label.name %>
-    <% end %>
-
-    <p>状態：<%= task.enum_i18n(:status) %></p>
-    <p>期限 <%= task.deadline %></p>
-    <p>作成日時：<%= task.created_at %></p>
-    <p>更新日時：<%= task.updated_at %></p>
-    <%= link_to "詳細", "/tasks/#{task.id}", method: :get %>
+      <% end %>
+      <p class="card-text mr-4"><small class="font-weight-bold"><%= task.enum_i18n(:status) %></small></p>
+      <p class="card-text mr-4"><small class="text-muted"><%= time_ago_in_words(task.created_at) %>前に作成</small></p>
+      <%= link_to '詳細', "/tasks/#{task.id}", method: :get, class: "card-link mr-4" %>
+    </div>
+  </div>
 <% end %>
 
 <%= paginate @tasks %>

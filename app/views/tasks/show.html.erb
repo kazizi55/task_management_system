@@ -1,16 +1,24 @@
-<h1>タスク詳細</h1>
+<div class="card width-40rem mx-auto mt-3">
+  <div class="card-header">
+    <p class="card-text">タスク詳細</p>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @task.name %></h5>
+    <p class="card-text"><%= @task.explanation %></p>
+    <% @task.labels.each do |label| %>
+      <%= label.name %>
+    <% end %>
+    <p class="card-text">状態：<%= @task.enum_i18n(:status) %></p>
+    <p class="card-text">優先度：<%= @task.enum_i18n(:priority) %></p>
+    <p class="card-text">期限：<%= (@task.deadline.year == Time.current.year) ? (l @task.deadline, format: :short) : (l @task.deadline) %></p>
+    <p class="card-text"><small class="text-muted"><%= time_ago_in_words(@task.created_at) %>前に作成</small></p>
 
-<h2><%= @task.name %></h2>
-<%= @task.explanation %>
+    <% if @task.created_at != @task.updated_at %>
+      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(@task.updated_at) %>前に更新</small></p>
+    <% end %>
 
-<% @task.labels.each do |label| %>
-  <%= label.name %>
-<% end %>
-                                 
-<p>状態：<%= @task.enum_i18n(:status) %></p>
-<p>期限 <%= @task.deadline %></p>
-
-<%= link_to '戻る', "/tasks", method: :get %>
-<%= link_to '編集', "/tasks/#{@task.id}/edit", method: :get %>
-<%= link_to '削除', "/tasks/#{@task.id}", method: :delete %>
-
+    <%= link_to '戻る', "/tasks", method: :get, class: "btn btn-outline-primary" %>
+    <%= link_to '編集', "/tasks/#{@task.id}/edit", method: :get, class: "btn btn-outline-success" %>
+    <%= link_to '削除', "/tasks/#{@task.id}", method: :delete, class: "btn btn-outline-danger" %>
+  </div>
+</div>

@@ -1,3 +1,17 @@
 // Place all the styles related to the Tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+  .width {
+    &-30rem {
+      width: 30rem;
+    }
+
+    &-40rem {
+      width: 40rem;
+    }
+  }
+
+  .pagination {
+    justify-content: center;
+    margin-top: 40px;
+  }
